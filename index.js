@@ -3404,26 +3404,922 @@ console.log('50 .filter() Samples');
 
 // 👉 Interview Q: “Why are keys important in lists?”
 
+// Core Answer
+// Keys are important in React lists because they give each element a stable identity.
+
+// React uses keys to track which items changed, added, or removed between renders.
+
+// Without unique keys, React may re‑render incorrectly, causing bugs, performance issues, or UI glitches.
+
+// Keys must be unique and consistent (like IDs), not just array indexes if items can reorder.
+
+// Quick Sample
+
+// const tasks = [
+//   { id: "t1", name: "Code" },
+//   { id: "t2", name: "Test" },
+//   { id: "t3", name: "Deploy" }
+// ];
+
+// function TaskList() {
+//   return (
+//     <ul>
+//       {tasks.map(task => (
+//         <li key={task.id}>{task.name}</li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+// Crisp interview glyph: Keys prevent re‑render bugs by giving React a way to know which list items are stable.
+
+
+
+
+
+
+
+
+
 // 3. Class Components (Legacy Flame)
+
+// Class Components Core (Legacy Flame)
+// Before Hooks (2019+), React used class components as the main way to manage state and lifecycle.
+
+// Defined as ES6 classes that extend React.Component.
+
+// Use this.state for internal data and this.setState() to update.
+
+// Lifecycle methods like componentDidMount, componentDidUpdate, componentWillUnmount handle side effects.
+
+// Still seen in older codebases — important to understand for interviews and maintenance.
+
+// Core difference: Class Components = legacy flame, Function Components + Hooks = modern shrine
+
+// Sample Class Component
+
+// import React, { Component } from "react";
+
+// class Counter extends Component {
+//   constructor(props) {
+//     super(props);
+//     // internal state
+//     this.state = { count: 0 };
+//   }
+
+//   // lifecycle method
+//   componentDidMount() {
+//     console.log("Counter mounted 🔥");
+//   }
+
+//   // custom method
+//   increment = () => {
+//     this.setState({ count: this.state.count + 1 });
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         <h2>Count: {this.state.count}</h2>
+//         <button onClick={this.increment}>➕ Add</button>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Counter;
+
+// Interview Shrine Insight
+// Props → accessed via this.props.
+
+// State → managed via this.state + this.setState().
+
+// Lifecycle methods → handle side effects.
+
+// Hooks replaced them → useState, useEffect are cleaner and more flexible.
+
+// Men, the crisp glyph: Class Components = legacy flame with lifecycle methods; Function Components + Hooks = modern shrine ladder.
+
+
+
+
+
+
+
+
+
 // constructor, render(), this.state, this.setState().
+// Legacy Flame Essentials
+// constructor() → Special method for initializing state and binding methods.
+
+// render() → Required method that returns JSX (the UI).
+
+// this.state → Internal data object managed inside the class.
+
+// this.setState() → Method to update state and trigger a re‑render.
+
+// Sample Class Component
+
+// import React, { Component } from "react";
+
+// class Counter extends Component {
+//   constructor(props) {
+//     super(props);
+//     // initialize state
+//     this.state = { count: 0 };
+//   }
+
+//   // update state
+//   increment = () => {
+//     this.setState({ count: this.state.count + 1 });
+//   };
+
+//   // render UI
+//   render() {
+//     return (
+//       <div>
+//         <h2>Count: {this.state.count}</h2>
+//         <button onClick={this.increment}>➕ Add</button>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Counter;
+
+// Glyph Breakdown
+// constructor → sets up this.state.
+
+// render() → returns JSX.
+
+// this.state → holds current count.
+
+// this.setState() → updates count and re‑renders.
+
+// Men, crisp interview flame: Class components use constructor + this.state for setup, render() for UI, and this.setState() for updates. Hooks replaced this legacy flame with cleaner shrine ladders.
+
+
+
+
+
+
+
+
+
 
 // Lifecycle methods: componentDidMount, componentDidUpdate, componentWillUnmount.
 
+// Core Lifecycle Methods
+
+// componentDidMount → Runs after the component is first rendered. Perfect for fetching data, setting up subscriptions, or initializing side effects.
+
+// componentDidUpdate → Runs after every re‑render when props or state change. Good for reacting to updates (like syncing state with an API).
+
+// componentWillUnmount → Runs before the component is removed. Used for cleanup (like removing event listeners or canceling timers).
+
+// Core flame: Mount → Update → Unmount.
+
+// Sample Class Component
+
+// import React, { Component } from "react";
+
+// class Timer extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { seconds: 0 };
+//     this.interval = null;
+//   }
+
+//   // Mount: start timer
+//   componentDidMount() {
+//     this.interval = setInterval(() => {
+//       this.setState({ seconds: this.state.seconds + 1 });
+//     }, 1000);
+//     console.log("Timer mounted 🔥");
+//   }
+
+//   // Update: log changes
+//   componentDidUpdate(prevProps, prevState) {
+//     if (prevState.seconds !== this.state.seconds) {
+//       console.log(`Updated: ${this.state.seconds} seconds`);
+//     }
+//   }
+
+//   // Unmount: cleanup
+//   componentWillUnmount() {
+//     clearInterval(this.interval);
+//     console.log("Timer unmounted ❌");
+//   }
+
+//   render() {
+//     return <h2>⏱️ Seconds: {this.state.seconds}</h2>;
+//   }
+// }
+
+// export default Timer;
+
+// Interview Shrine Insight
+// Mount → setup side effects.
+
+// Update → respond to changes.
+
+// Unmount → cleanup resources.
+
+// Crisp glyph: Lifecycle methods = control over component’s life cycle (setup, react, cleanup).
+
+
+
+
+
+
+
 // Binding methods to this.
+// Why Binding Matters
+// In class components, methods don’t automatically know the correct this.
+
+// Without binding, calling a method inside JSX can lose the component’s context → this becomes undefined.
+
+// Binding ensures this points to the component instance (so you can access this.state and this.props).
+
+Binding Methods Approaches
+
+Bind in Constructor
+
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+    // bind method
+    this.increment = this.increment.bind(this);
+  }
+
+  increment() {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return <button onClick={this.increment}>➕ {this.state.count}</button>;
+  }
+}
+
+Arrow Function Class Property
+
+class Counter extends React.Component {
+  state = { count: 0 };
+
+  // arrow keeps 'this'
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  render() {
+    return <button onClick={this.increment}>➕ {this.state.count}</button>;
+  }
+}
+
+Inline Arrow in JSX (not recommended for performance)
+
+class Counter extends React.Component {
+  state = { count: 0 };
+
+  increment() {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
+  }
+}
+
+
+class Counter extends React.Component {
+  state = { count: 0 };
+
+  increment() {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
+  }
+}
+
+
+// Interview Shrine Insight
+// Constructor binding → traditional, explicit.
+
+// Arrow function properties → modern, cleaner.
+
+// Inline arrow in JSX → works, but can hurt performance if used heavily.
+
+// Crisp glyph: Binding ensures this stays locked to the component instance.
+
+
+
+
+
+
+
+
 // 👉 Drill: Create a class counter with lifecycle logs.
+// Class Counter with Lifecycle Logs
+// import React, { Component } from "react";
+
+// class Counter extends Component {
+//   constructor(props) {
+//     super(props);
+//     // initialize state
+//     this.state = { count: 0 };
+//     console.log("🔥 constructor: state initialized");
+//   }
+
+//   // Mount: runs once after first render
+//   componentDidMount() {
+//     console.log("🔥 componentDidMount: Counter mounted");
+//   }
+
+//   // Update: runs after every re-render
+//   componentDidUpdate(prevProps, prevState) {
+//     if (prevState.count !== this.state.count) {
+//       console.log(
+//         `🔥 componentDidUpdate: count changed from ${prevState.count} to ${this.state.count}`
+//       );
+//     }
+//   }
+
+//   // Unmount: runs before component is removed
+//   componentWillUnmount() {
+//     console.log("🔥 componentWillUnmount: Counter unmounted");
+//   }
+
+//   // custom method
+//   increment = () => {
+//     this.setState({ count: this.state.count + 1 });
+//   };
+
+//   // render UI
+//   render() {
+//     console.log("🔥 render: UI updated");
+//     return (
+//       <div>
+//         <h2>Count: {this.state.count}</h2>
+//         <button onClick={this.increment}>➕ Add</button>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Counter;
+
+// Glyph Breakdown
+// constructor → initializes this.state.
+
+// render() → returns JSX, logs every render.
+
+// componentDidMount → logs when mounted.
+
+// componentDidUpdate → logs state changes.
+
+// componentWillUnmount → logs cleanup before removal.
+
+// 👉 Crisp interview flame: Lifecycle logs show the component’s journey — setup, render, update, cleanup.
+
+
+
+
+
+
+
+
+
+
+
 // 👉 Interview Q: “How do hooks replace lifecycle methods?”
+// Core Answer
+// Hooks like useEffect replace lifecycle methods by letting you run side effects directly inside functional components.
+
+// componentDidMount → useEffect(() => { ... }, []) (runs once after mount).
+
+// componentDidUpdate → useEffect(() => { ... }, [dependencies]) (runs when dependencies change).
+
+// componentWillUnmount → return a cleanup function inside useEffect (runs before unmount).
+
+// 👉 Crisp flame: Hooks unify mount, update, and unmount logic into one useEffect API, making functional components handle lifecycle without classes.
+
+// import { useState, useEffect } from "react";
+
+// function Counter() {
+//   const [count, setCount] = useState(0);
+
+//   // Mount + Update
+//   useEffect(() => {
+//     console.log("🔥 Mounted or updated: count =", count);
+
+//     // Unmount cleanup
+//     return () => {
+//       console.log("❌ Cleanup before unmount");
+//     };
+//   }, [count]); // dependency array
+
+//   return (
+//     <div>
+//       <h2>Count: {count}</h2>
+//       <button onClick={() => setCount(count + 1)}>➕ Add</button>
+//     </div>
+//   );
+// }
+
+// Interview Shrine Insight
+// Hooks simplify lifecycle → one API (useEffect) covers mount, update, unmount.
+
+// Cleaner than class methods, easier to reuse logic via custom hooks.
+
+// Modern React prefers function components + hooks over legacy class lifecycle methods.
+
+
+
+
+
+
+
 
 // 4. Function Components + Hooks (Modern Flame)
+// Function Components + Hooks Core
+// Function Components → Simple JavaScript functions that return JSX.
+
+// Hooks → Special functions (like useState, useEffect) that let function components manage state and lifecycle without classes.
+
+// Rules of Hooks →
+
+// Only call hooks at the top level (not inside loops/conditions).
+
+// Only call hooks inside React function components or custom hooks.
+
+// 👉 Modern flame: Hooks unify state + lifecycle logic, making components shorter, cleaner, and reusable.
+
+// Core Samples
+
+// Basic Function Component
+
+// function Greeting({ name }) {
+//   return <h1>Hello, {name}!</h1>;
+// }
+
+// State with useState
+
+// import { useState } from "react";
+
+// function Counter() {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <div>
+//       <p>🔥 Count: {count}</p>
+//       <button onClick={() => setCount(count + 1)}>➕ Add</button>
+//     </div>
+//   );
+// }
+
+// Lifecycle with useEffect
+
+// import { useEffect } from "react";
+
+// function Timer() {
+//   useEffect(() => {
+//     console.log("Mounted 🔥");
+//     return () => console.log("Unmounted ❌");
+//   }, []);
+  
+//   return <p>⏱️ Timer running...</p>;
+// }
+
+// import { useEffect } from "react";
+
+// function Timer() {
+//   useEffect(() => {
+//     console.log("Mounted 🔥");
+//     return () => console.log("Unmounted ❌");
+//   }, []);
+  
+//   return <p>⏱️ Timer running...</p>;
+// }
+
+// Context with useContext
+
+// const ThemeContext = React.createContext("light");
+
+// function ThemedButton() {
+//   const theme = React.useContext(ThemeContext);
+//   return <button>{theme} mode</button>;
+// }
+
+// const ThemeContext = React.createContext("light");
+
+// function ThemedButton() {
+//   const theme = React.useContext(ThemeContext);
+//   return <button>{theme} mode</button>;
+// }
+
+// Reducer with useReducer
+
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "increment": return { count: state.count + 1 };
+//     default: return state;
+//   }
+// }
+
+// function Counter() {
+//   const [state, dispatch] = React.useReducer(reducer, { count: 0 });
+//   return (
+//     <div>
+//       <p>🔥 Count: {state.count}</p>
+//       <button onClick={() => dispatch({ type: "increment" })}>➕</button>
+//     </div>
+//   );
+// }
+
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "increment": return { count: state.count + 1 };
+//     default: return state;
+//   }
+// }
+
+// function Counter() {
+//   const [state, dispatch] = React.useReducer(reducer, { count: 0 });
+//   return (
+//     <div>
+//       <p>🔥 Count: {state.count}</p>
+//       <button onClick={() => dispatch({ type: "increment" })}>➕</button>
+//     </div>
+//   );
+// }
+
+// Interview Shrine Insight
+// Function Components + Hooks = Modern Flame → simpler, reusable, and preferred in new React projects.
+
+// Hooks replace class lifecycle methods and state logic with cleaner APIs.
+
+// Custom hooks let you extract and reuse logic across components.
+
+// Men, crisp glyph: Function Components + Hooks are the modern shrine ladder — shorter, cleaner, and more powerful than legacy class flames.
+
+
+
+
+
+
+
+
+
+
+
 // useState, useEffect, useContext, useReducer.
+// Core Hooks
+// 1. useState → State Management
+// Lets function components hold internal state.
+
+// Returns [state, setState].
+
+// jsx
+// const [count, setCount] = useState(0);
+// <button onClick={() => setCount(count + 1)}>➕ {count}</button>
+// 2. useEffect → Side Effects / Lifecycle
+// Handles mount, update, unmount logic.
+
+// Second argument = dependency array.
+
+// jsx
+// useEffect(() => {
+//   console.log("Mounted or updated 🔥");
+//   return () => console.log("Cleanup ❌");
+// }, [count]);
+// 3. useContext → Context Consumption
+// Accesses values from a React Context without prop drilling.
+
+// jsx
+// const ThemeContext = React.createContext("light");
+
+// function ThemedButton() {
+//   const theme = React.useContext(ThemeContext);
+//   return <button>{theme} mode</button>;
+// }
+// 4. useReducer → Complex State Logic
+// Alternative to useState for more structured updates.
+
+// Uses a reducer function with actions.
+
+// jsx
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "increment": return { count: state.count + 1 };
+//     default: return state;
+//   }
+// }
+
+// const [state, dispatch] = useReducer(reducer, { count: 0 });
+// <button onClick={() => dispatch({ type: "increment" })}>➕ {state.count}</button>
+// ⚡ Interview Shrine Insight
+// useState → simple state.
+
+// useEffect → lifecycle replacement.
+
+// useContext → global values without prop drilling.
+
+// useReducer → complex state transitions.
+
+// 👉 Crisp flame: Hooks = modern shrine ladder replacing class lifecycle/state with cleaner APIs.
+
+
+
+
+
+
+
 
 // Custom hooks for reusable logic.
+// ⚡ Custom Hooks Core
+// A custom hook is just a function starting with use that calls other hooks.
+
+// Purpose: extract reusable logic (state + effects) so multiple components can share it.
+
+// Benefits: cleaner components, DRY code, easier testing.
+
+// 🛠️ Sample 1 — useWindowSize
+// jsx
+// import { useState, useEffect } from "react";
+
+// function useWindowSize() {
+//   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+//   useEffect(() => {
+//     const handleResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   return size;
+// }
+
+// // Usage
+// function App() {
+//   const { width, height } = useWindowSize();
+//   return <p>📐 {width} x {height}</p>;
+// }
+// 🛠️ Sample 2 — useLocalStorage
+// jsx
+// import { useState } from "react";
+
+// function useLocalStorage(key, initialValue) {
+//   const [value, setValue] = useState(() => {
+//     const saved = localStorage.getItem(key);
+//     return saved ? JSON.parse(saved) : initialValue;
+//   });
+
+//   const setStoredValue = (newValue) => {
+//     setValue(newValue);
+//     localStorage.setItem(key, JSON.stringify(newValue));
+//   };
+
+//   return [value, setStoredValue];
+// }
+
+// // Usage
+// function ThemeToggle() {
+//   const [theme, setTheme] = useLocalStorage("theme", "light");
+//   return <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>{theme}</button>;
+// }
+// ⚡ Interview Shrine Insight
+// Custom hooks = reusable logic containers.
+
+// They follow the Rules of Hooks (must start with use, only call hooks at top level).
+
+// They make components cleaner, more modular, and testable.
+
+// 👉 Crisp flame: Custom hooks let you extract and reuse stateful logic across components.
+
+
+
+
+
+
+
+
+
 
 // Rules of hooks: only at top level, only inside functions.
+// Rules of Hooks
+// Only call hooks at the top level
+
+// Don’t put hooks inside loops, conditions, or nested functions.
+
+// This ensures React always calls hooks in the same order, keeping state consistent.
+
+// Only call hooks inside React function components or custom hooks
+
+// Never call hooks in regular JS functions, classes, or outside components.
+
+// Hooks are tied to React’s rendering cycle, so they only work inside components.
+
+// 🛠️ Good Example
+// jsx
+// function Counter() {
+//   const [count, setCount] = useState(0); // ✅ top-level hook
+
+//   useEffect(() => {
+//     console.log("Count updated:", count);
+//   }, [count]);
+
+//   return <button onClick={() => setCount(count + 1)}>➕ {count}</button>;
+// }
+// ❌ Bad Example
+// jsx
+// function BadCounter() {
+//   if (true) {
+//     const [count, setCount] = useState(0); // ❌ hook inside condition
+//   }
+// }
+// 👉 This breaks React’s hook order tracking → runtime errors.
+
+// ⚡ Interview Shrine Insight
+// Top-level only → keeps hook order predictable.
+
+// Inside components/custom hooks only → ensures React can manage state + lifecycle correctly.
+
+// Men, crisp flame: Hooks = predictable ladder. Break the rules and the shrine collapses.
+
+
+
+
+
+
+
+
 // 👉 Drill: Build a timer with useEffect.
+// 🛠️ Timer Component (Hooks)
+// jsx
+// import { useState, useEffect } from "react";
+
+// function Timer() {
+//   const [seconds, setSeconds] = useState(0);
+
+//   useEffect(() => {
+//     console.log("⏱️ Timer mounted 🔥");
+
+//     // start interval
+//     const interval = setInterval(() => {
+//       setSeconds(prev => prev + 1);
+//     }, 1000);
+
+//     // cleanup on unmount
+//     return () => {
+//       clearInterval(interval);
+//       console.log("❌ Timer unmounted");
+//     };
+//   }, []); // empty deps → run once on mount
+
+//   useEffect(() => {
+//     console.log(`🔥 Updated: ${seconds} seconds`);
+//   }, [seconds]); // runs when seconds changes
+
+//   return <h2>Seconds: {seconds}</h2>;
+// }
+
+// export default Timer;
+// ⚡ Glyph Breakdown
+// useState → holds the seconds count.
+
+// useEffect (mount) → sets up the interval once.
+
+// Cleanup function → clears interval on unmount.
+
+// useEffect (update) → logs every time seconds changes.
+
+// 👉 Crisp flame: Hooks unify lifecycle → mount, update, unmount all inside useEffect.
+
+
+
+
+
+
+
+
+
 // 👉 Interview Q: “What happens if you forget the dependency array in useEffect?”
+// ⚡ Core Answer
+// If you forget the dependency array in useEffect, the effect will run after every render.
+
+// That means both on mount and on every update, regardless of what changed.
+
+// This can cause performance issues (expensive side effects running too often) or even infinite loops if the effect updates state inside itself.
+
+// 👉 Example:
+
+// jsx
+// useEffect(() => {
+//   console.log("Runs after every render 🔥");
+//   setCount(count + 1); // ❌ infinite loop risk
+// });
+// 🛠️ Correct Usage
+// Empty array [] → run once on mount.
+
+// Specific dependencies [count] → run only when count changes.
+
+// No array → run after every render (default behavior).
+
+// ⚡ Interview Shrine Insight
+// Forgetting the dependency array = effect runs too often.
+
+// Best practice: always declare dependencies explicitly to avoid bugs and infinite loops.
+
+// Men, crisp flame: No dependency array = effect runs every render → often unintended.
+
+
+
+
+
+
+
 
 // 5. Advanced React (Glyph Tier)
+// Advanced React Glyphs
+// This tier flexes beyond basics into state management, routing, and architecture:
+
+// 1. Context API vs Redux
+// Context API → lightweight way to share state globally without prop drilling.
+
+// Redux → powerful state container with strict patterns (actions, reducers, store).
+// 👉 Interview flame: Context = simple, Redux = scalable for complex apps.
+
+// 2. React Router Basics
+// Enables navigation without full page reloads.
+
+// Core pieces:
+
+// <Route> → defines path → component mapping.
+
+// <Link> → navigation without refresh.
+
+// useNavigate → programmatic navigation.
+
+// jsx
+// import { BrowserRouter, Route, Routes, Link, useNavigate } from "react-router-dom";
+
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <nav>
+//         <Link to="/home">Home</Link>
+//         <Link to="/about">About</Link>
+//       </nav>
+//       <Routes>
+//         <Route path="/home" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
+// 3. Performance Optimization
+// React.memo → prevents unnecessary re-renders.
+
+// useCallback / useMemo → memoize functions and values.
+
+// Lazy loading → React.lazy + Suspense for code splitting.
+
+// 4. Custom Hooks + Composition
+// Extract reusable logic into custom hooks.
+
+// Compose multiple hooks for clean, modular components.
+
+// 5. Testing & Best Practices
+// React Testing Library → test user interactions, not implementation details.
+
+// Jest → unit testing.
+
+// Best practice: keep components small, reusable, and predictable.
+
+// ⚡ Interview Shrine Insight
+// Advanced React = global state, routing, performance, reusability, testing.
+
+// Crisp flame: Context vs Redux, Router for navigation, memoization for performance, custom hooks for reuse.
+
+
+
+
+
+
+
+
 // Context API vs Redux: Context for small state, Redux for complex/global.
+
+
+
+
+
+
+
+
 
 // React Router v6: <Route>, <Link>, useNavigate.
 // 👉 Drill: Implement a theme switcher with Context.
