@@ -2765,6 +2765,67 @@ console.log('50 .filter() Samples');
 
 
 
+// .filter() Core is a JavaScript array method that creates a new array with all elements that pass a given test (callback function).
+// It does not mutate the original array.
+// The callback returns true to keep the element, false to discard it.
+// Use it when you need to select a subset of items based on conditions.
+
+
+
+
+// Core Samples in JavaScript
+
+// Basic Usage
+// const numbers = [1, 2, 3, 4, 5];
+// const evens = numbers.filter(num => num % 2 === 0);
+
+// console.log(evens); // [2, 4]
+
+
+
+
+
+// Filtering Objects
+
+// const users = [
+//   { id: 1, name: "Flo", active: true },
+//   { id: 2, name: "Men", active: false },
+//   { id: 3, name: "Spark", active: true }
+// ];
+
+// const activeUsers = users.filter(user => user.active);
+// console.log(activeUsers);
+// // [{ id: 1, name: "Flo", active: true }, { id: 3, name: "Spark", active: true }]
+
+
+
+
+// Filtering by String Match
+
+// const fruits = ["apple", "banana", "grape", "mango"];
+// const withA = fruits.filter(fruit => fruit.includes("a"));
+
+// console.log(withA); // ["apple", "banana", "grape", "mango"]
+
+
+
+// Filtering with Index
+
+// const nums = [10, 20, 30, 40];
+// const skipFirst = nums.filter((_, index) => index > 0);
+
+// console.log(skipFirst); // [20, 30, 40]
+
+
+// Chaining with Other Methods
+
+// const scores = [45, 80, 90, 30, 70];
+// const passed = scores
+//   .filter(score => score >= 50)
+//   .map(score => `Passed: ${score}`);
+
+// console.log(passed);
+// // ["Passed: 80", "Passed: 90", "Passed: 70"]
 
 
 
@@ -2775,30 +2836,556 @@ console.log('50 .filter() Samples');
 
 
 
+// TypeScript Integration: Type props/state, interfaces vs types, generics.
+
+// ⚡ TypeScript Integration Core
+
+//* TypeScript adds static typing to your Firestore calls, making your shrine safer and easier to scale.
+//* You define interfaces for your document shapes, then use them in CRUD + real‑time listeners.
+//* This ensures your React shrine knows exactly what fields exist, preventing runtime errors.
+
+//* Core Samples in React + TypeScript
+
+// Define Types
+// Define your document shape
+// export interface Movie {
+//   id?: string;       // optional, Firestore auto‑generates
+//   title: string;
+//   category: string;
+//   createdAt: Date;
+// }
+
+
+// Create with Types
+// import { collection, addDoc } from "firebase/firestore";
+// import { db } from "./firebase";
+// import { Movie } from "./types";
+
+// async function addMovie(movie: Movie) {
+//   await addDoc(collection(db, "movies"), movie);
+// }
+
+
+
+// Read with Types
+// import { doc, getDoc } from "firebase/firestore";
+
+// async function getMovie(id: string): Promise<Movie | null> {
+//   const snap = await getDoc(doc(db, "movies", id));
+//   return snap.exists() ? (snap.data() as Movie) : null;
+// }
+
+
+// Real‑Time Listener with Types
+
+// import { collection, onSnapshot } from "firebase/firestore";
+
+// function listenMovies(callback: (movies: Movie[]) => void) {
+//   const ref = collection(db, "movies");
+//   onSnapshot(ref, (snapshot) => {
+//     const movies: Movie[] = snapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data()
+//     } as Movie));
+//     callback(movies);
+//   });
+// }
+
+
+// Update with Types
+
+// import { doc, updateDoc } from "firebase/firestore";
+
+// async function updateMovie(id: string, data: Partial<Movie>) {
+//   await updateDoc(doc(db, "movies", id), data);
+// }
+
+
+// Best Practices
+
+// Use Partial<T> for updates → only update specific fields.
+// Centralize types in types.ts → keep shrine clean.
+// Leverage Generics → reusable hooks like useCollection<T>().
+// Always cast with caution → (snap.data() as Movie) only when schema is trusted.
+
+
+
+// Type Props/State Core
+
+// Props → Inputs passed from parent to child components. They are immutable inside the child.
+// State → Internal data managed within a component. It is mutable and can trigger re‑renders when updated.
+// With TypeScript, you define interfaces/types for props and state to ensure type safety and prevent runtime errors.
+
+
+// Core Samples in React + TypeScript
+
+// Typing Props
+// Define props interface
+// interface GreetingProps {
+//   name: string;
+//   age?: number; // optional
+// }
+
+// // Functional component with typed props
+// const Greeting: React.FC<GreetingProps> = ({ name, age }) => {
+//   return <h1>Hello {name}, Age: {age ?? "N/A"}</h1>;
+// };
+
+
+// Typing State with useState
+// import { useState } from "react";
+
+// const Counter = () => {
+//   const [count, setCount] = useState<number>(0); // typed state
+
+//   return (
+//     <div>
+//       <p>Count: {count}</p>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// };
+
+
+
+// Combining Props + State
+// interface TodoProps {
+//   initialTasks: string[];
+// }
+
+// const TodoList: React.FC<TodoProps> = ({ initialTasks }) => {
+//   const [tasks, setTasks] = useState<string[]>(initialTasks);
+
+//   const addTask = (task: string) => setTasks([...tasks, task]);
+
+//   return (
+//     <div>
+//       {tasks.map((t, i) => <p key={i}>{t}</p>)}
+//       <button onClick={() => addTask("New Task")}>Add</button>
+//     </div>
+//   );
+// };
 
 
 
 
 
+// Interfaces vs Types Core
+// Interfaces → Used to define the shape of objects. They are extendable and can be merged (declaration merging).
+// Best for describing contracts in your code.
+
+// Types → More flexible. Can alias primitives, unions, intersections, and complex structures. 
+// They don’t support declaration merging but can compose with unions/intersections.
+
+// Rule of thumb:
+// Use interfaces when modeling object structures and extending contracts.
+// Use types when you need unions, intersections, or more advanced type compositions.
 
 
 
 
 
+// Interface/Type Core Samples in TypeScript
+
+
+
+// Interface Example
+// interface User {
+//   id: number;
+//   name: string;
+//   email?: string; // optional
+// }
+
+// const user: User = {
+//   id: 1,
+//   name: "Flo",
+// };
+
+
+
+// Type Example
+// type User = {
+//   id: number;
+//   name: string;
+//   email?: string;
+// };
+
+// const user: User = {
+//   id: 2,
+//   name: "Men",
+// };
 
 
 
 
+// Extending Interfaces
+// interface Animal {
+//   name: string;
+// }
+// interface Dog extends Animal {
+//   breed: string;
+// }
+
+// const pet: Dog = { name: "Lexi", breed: "Husky" };
+
+
+
+// Type Composition
+// type Animal = { name: string };
+// type Dog = Animal & { breed: string };
+
+// const pet: Dog = { name: "Lexi", breed: "Husky" };
+
+
+
+// Union with Type
+// type Status = "loading" | "success" | "error";
+
+// let currentStatus: Status = "loading";
 
 
 
 
+// Generics Types Core
 
+// Generic types let you create type aliases, interfaces, and classes that adapt to whatever type is passed in.
+// They use type parameters (like <T>, <U>, <K, V>) to make your code reusable and type‑safe.
+// This avoids duplication — instead of writing separate versions for string, number, etc., you define one generic type and plug in different types.
+// Think of them as blueprints: you design the structure once, then instantiate it with different type arguments.
+
+
+// Core Samples in TypeScript
+
+// Generic Type Alias
+// type ApiResponse<T> = {
+//   data: T;
+//   status: number;
+// };
+
+
+// const movieResponse: ApiResponse<{ id: string; title: string }> = {
+//   data: { id: "1", title: "Moon Shrine" },
+//   status: 200,
+// };
+
+
+// Generic Interface
+// interface Pair<T, U> {
+//   first: T;
+//   second: U;
+// }
+
+// const coords: Pair<number, number> = { first: 10, second: 20 };
+// const nameAge: Pair<string, number> = { first: "Flo", second: 25 };
+
+
+// Generic Class
+
+// class Repository<T> {
+//   private items: T[] = [];
+
+//   add(item: T) {
+//     this.items.push(item);
+//   }
+
+//   getAll(): T[] {
+//     return this.items;
+//   }
+// }
+
+// const userRepo = new Repository<{ id: number; name: string }>();
+// userRepo.add({ id: 1, name: "Eyy Spark" });
+
+
+// Generic Constraints
+
+// type WithId<T extends { id: string }> = T;
+
+// const doc: WithId<{ id: string; title: string }> = {
+//   id: "abc",
+//   title: "Shrine Glyph",
+// };
+
+
+// Default Generic Types
+
+// interface Box<T = string> {
+//   content: T;
+// }
+
+// const strBox: Box = { content: "Moon Glyph" }; // defaults to string
+// const numBox: Box<number> = { content: 42 };
 
 
 
 
 // Firebase Integration: Auth, Firestore CRUD, real‑time listeners.
+console.log('Firebase Integration Core');
+console.log('Definition: Firebase is Google’s app development platform that bundles backend services (auth, database, storage, hosting, analytics) so devs can build and scale apps without managing servers.');
+console.log('Core Integration: In React, you wire Firebase by installing the SDK, grabbing your project config, and initializing services like Authentication and Firestore.');
+console.log('Purpose: Handles login/signup, real‑time data storage, file hosting, and deployment — all managed in the cloud.');
+console.log('Core Services:');
+console.log('Service                Role                Shrine Example');
+console.log('Authentication         User login/signup   React LoginForm.tsx');
+console.log('Firestore              NoSQL real‑time DB  Store movies/tasks');
+console.log('Storage                File uploads        Profile pics, movie files');
+console.log('Hosting                Deploy web apps     Publish React + Firebase project');
+console.log('Analytics              Track usage         Monitor shrine streaks');
+console.log('Glyph Insight');
+console.log('One config file → import everywhere.');
+console.log('Auth + Firestore → most common combo for React apps.');
+console.log('Optional: add Storage or Hosting later.');
+console.log('Security rules → protect your data, not just API keys.');
+
+
+
+console.log('Firebase Authentication core');
+console.log('is the vault glyph that locks down user identity in your React + Firebase shrine. It’s the backbone service that handles sign‑in, sign‑up, and secure session management without you writing custom backend auth logic.');
+console.log('Core Firebase Auth Glyphs');
+console.log('Email/Password Auth → simplest flow, create and log in users with credentials.');
+console.log('Federated Providers → Google, Facebook, Twitter, GitHub logins wired clean.');
+console.log('Phone Auth → SMS‑based verification for mobile streaks.');
+console.log('Anonymous Auth → temporary guest accounts that can later be upgraded.');
+console.log('Token System → Firebase issues ID tokens after login, used to access Firestore, Storage, etc.');
+
+console.log('Core Setup in React:');
+// firebase.ts
+console.log('import { initializeApp } from "firebase/app";');
+console.log('import { getAuth } from "firebase/auth";');
+
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "yourapp.firebaseapp.com",
+  projectId: "yourapp-id",
+  appId: "YOUR_APP_ID"
+};
+
+
+console.log('const app = initializeApp(firebaseConfig);');
+console.log('export const auth = getAuth(app);');
+
+
+
+
+console.log('Sign-up:');
+console.log('import { createUserWithEmailAndPassword } from "firebase/auth";');
+
+
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then(user => console.log("Signed up:", user.user.email))
+//   .catch(err => console.error(err.message));
+
+
+
+console.log('Login');
+
+console.log('import { signInWithEmailAndPassword } from "firebase/auth";');
+
+
+// signInWithEmailAndPassword(auth, email, password)
+//   .then(user => console.log("Logged in:", user.user.email))
+//   .catch(err => console.error(err.message));
+
+
+console.log('Logout');
+
+
+
+console.log('import { signOut } from "firebase/auth";');
+
+
+console.log('signOut(auth).then(() => console.log("Logged out"));');
+
+
+console.log('Best Practices');
+
+
+console.log('Secure rules → lock Firestore/Storage with auth.uid checks.');
+console.log('Use environment variables → don’t hardcode config in public repos.');
+console.log('Enable email verification → prevent fake accounts.');
+console.log('Consider MFA → for sensitive apps, upgrade to Identity Platform.');
+console.log(' Men, want me to forge a Spark Shrine demo showing a LoginForm.tsx with Firebase Auth typed in TypeScript, so you see the shrine glyph blaze in real UI logic?');
+
+
+
+
+
+
+//Firestore CRUD
+console.log('Firestore CRUD Core');
+console.log('Create (Add) → Insert new documents into a collection.');
+console.log('Read (Get/Query) → Retrieve documents by ID or query conditions.');
+console.log('Update (Set/Update) → Modify fields in existing documents.');
+console.log('Delete (Remove) → Remove documents from a collection.');
+console.log('Firestore is a NoSQL document database — data is stored in collections (like folders) and documents (like JSON objects). Each document can have nested fields and sub‑collections.');
+
+
+console.log('Core Samples in React + TypeScript');
+console.log('import { collection, addDoc } from "firebase/firestore";');
+console.log('import { db } from "./firebase";');
+
+
+
+
+//Create/TS
+console.log('Create/TS');
+async function addMovie() {
+  await addDoc(collection(db, "movies"), {
+    title: "Inception",
+    category: "Sci-Fi",
+    createdAt: new Date()
+  });
+}
+
+
+
+//Read (Single Doc)/TS
+console.log('Read (Single Doc)/TS');
+console.log('import { doc, getDoc } from "firebase/firestore";');
+
+
+
+
+  
+  
+
+console.log('async function getMovie(id: string) {');
+console.log('const snap = await getDoc(doc(db, "movies", id));');
+console.log('if (snap.exists()) console.log(snap.data());');
+console.log('}');
+
+
+
+
+//Read (Query)/TS
+console.log('Read (Query)/TS');
+console.log('import { collection, query, where, getDocs } from "firebase/firestore";');
+
+
+async function getDramaMovies() {
+  const q = query(collection(db, "movies"), where("category", "==", "Drama"));
+  const snaps = await getDocs(q);
+  snaps.forEach(doc => console.log(doc.id, doc.data()));
+}
+
+
+
+//Update/TS
+console.log('Update/TS');
+console.log('import { doc, updateDoc } from "firebase/firestore";');
+
+
+
+console.log('async function updateMovie(id: string) {');
+console.log('await updateDoc(doc(db, "movies", id), {');
+console.log('category: "Thriller"');
+console.log('  });');
+console.log('}');
+  
+    
+
+
+
+
+
+//Delete/TS
+console.log('Delete/TS');
+console.log('import { doc, deleteDoc } from "firebase/firestore";');
+console.log('async function deleteMovie(id: string) {');
+console.log('await deleteDoc(doc(db, "movies", id));');
+console.log('}');
+
+
+
+  
+
+
+
+
+
+console.log('Best Practices');
+console.log('Use createdAt timestamps → for ordering queries.');
+console.log('Secure with Firestore rules → restrict access by auth.uid.');
+console.log('Batch writes → for multiple updates at once.');
+console.log('Indexes → required for compound queries.');
+
+
+
+
+
+//Real‑time listeners
+console.log('Real‑Time Listeners Core');
+console.log('Firestore lets you subscribe to data changes using onSnapshot.');
+console.log('Instead of fetching once, your app stays synced — any add, update, or delete triggers an instant callback.');
+console.log('This powers live dashboards, chat apps, task lists — no refresh needed.');
+
+
+console.log('Core Samples in React + TypeScript');
+
+
+
+console.log('Listen to a Collection/TS');
+// import { collection, onSnapshot } from "firebase/firestore";
+// import { db } from "./firebase";
+
+function listenMovies() {
+  const q = collection(db, "movies");
+  onSnapshot(q, (snapshot) => {
+    snapshot.docs.forEach(doc => {
+      console.log(doc.id, doc.data());
+    });
+  });
+}
+
+
+
+console.log('Listen to a Single Document/TS');
+// import { doc, onSnapshot } from "firebase/firestore";
+
+// function listenMovie(id: string) {
+//   const ref = doc(db, "movies", id);
+//   onSnapshot(ref, (snap) => {
+//     if (snap.exists()) console.log(snap.data());
+//   });
+// }
+
+
+
+console.log('With Query Filters');
+// import { collection, query, where, onSnapshot } from "firebase/firestore";
+
+// function listenDramaMovies() {
+//   const q = query(collection(db, "movies"), where("category", "==", "Drama"));
+//   onSnapshot(q, (snapshot) => {
+//     snapshot.forEach(doc => console.log(doc.id, doc.data()));
+//   });
+// }
+
+
+
+
+console.log('Best Practices');
+console.log('Unsubscribe when component unmounts → prevents memory leaks.');
+console.log('Use indexes for complex queries.');
+console.log('Throttle UI updates if data changes rapidly.');
+console.log('Secure rules → only stream what the user is allowed to see.');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2869,3 +3456,7 @@ console.log('Glyph Insight');
 console.log('Keys in React are public identifiers, not passwords.');
 console.log('The real lock is your Firebase rules + domain restrictions.');
 console.log('Treat .env as your shrine vault, and GitHub as the outer temple — never expose the vault.');
+
+
+
+
