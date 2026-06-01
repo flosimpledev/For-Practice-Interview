@@ -55,6 +55,10 @@
 //** */ 👉 Interview Q: “How do you type React props with TypeScript?”
 //** */ 👉 Interview Q: “How do you secure Firebase API keys in React?”
 
+
+
+
+
 // 🧪 200% Prep Ritual
 // Daily grind: Code one mini‑component per rung.
 
@@ -2826,6 +2830,604 @@ console.log('50 .filter() Samples');
 
 // console.log(passed);
 // // ["Passed: 80", "Passed: 90", "Passed: 70"]
+
+
+
+// Chaining with Other Methods
+
+// const scores = [45, 80, 90, 30, 70];
+// const passed = scores
+//   .filter(score => score >= 50)
+//   .map(score => `Passed: ${score}`);
+
+// console.log(passed);
+// // ["Passed: 80", "Passed: 90", "Passed: 70"]
+
+
+
+
+
+
+
+
+// .reduce() is a JavaScript array method that executes a reducer function on each element of the array, resulting in a single output value.
+
+// It takes two arguments:
+
+// A callback function (accumulator, currentValue) => newAccumulator
+
+// An optional initial value for the accumulator.
+
+// Perfect for summing, averaging, flattening arrays, building objects, or any operation that condenses an array into one result.
+
+
+
+// Core Samples in JavaScript
+
+// Sum of Numbers
+
+// const numbers = [1, 2, 3, 4, 5];
+// const sum = numbers.reduce((acc, num) => acc + num, 0);
+
+// console.log(sum); // 15
+
+
+// Find Maximum
+
+// const nums = [10, 25, 7, 99, 42];
+// const max = nums.reduce((acc, num) => (num > acc ? num : acc), nums[0]);
+
+// console.log(max); // 99
+
+
+// Count Occurrences
+
+// const letters = ["a", "b", "a", "c", "b", "a"];
+// const counts = letters.reduce((acc, letter) => {
+//   acc[letter] = (acc[letter] || 0) + 1;
+//   return acc;
+// }, {});
+
+// console.log(counts); // { a: 3, b: 2, c: 1 }
+
+
+
+// Flatten Nested Arrays
+
+// const nested = [[1, 2], [3, 4], [5]];
+// const flat = nested.reduce((acc, arr) => acc.concat(arr), []);
+
+// console.log(flat); // [1, 2, 3, 4, 5]
+
+
+// Build Object from Array
+
+
+// const users = [
+//   { id: 1, name: "Flo" },
+//   { id: 2, name: "Men" }
+// ];
+
+// const userMap = users.reduce((acc, user) => {
+//   acc[user.id] = user.name;
+//   return acc;
+// }, {});
+
+// console.log(userMap); // { 1: "Flo", 2: "Men" }
+
+
+
+
+
+// DOM basics: events, selectors.
+
+// Events Core
+
+// In JavaScript, an event is an action or occurrence (like a user click, key press, or data load) that the browser or environment detects.
+
+// Events are handled using event listeners, which are functions that run when the event fires.
+
+// They power interactive UIs — letting you respond to user input, system changes, or async operations.
+
+// Think of events as signals: when something happens, your code listens and reacts.
+
+
+
+
+// Core Samples in JavaScript
+
+// Basic Event Listener
+// document.getElementById("btn").addEventListener("click", () => {
+//   console.log("Button clicked!");
+// });
+
+
+// Mouse Events
+// document.addEventListener("mousemove", (e) => {
+//   console.log(`Mouse at: ${e.clientX}, ${e.clientY}`);
+// });
+
+
+// Keyboard Events
+// document.addEventListener("keydown", (e) => {
+//   console.log(`Key pressed: ${e.key}`);
+// });
+
+
+// Form Events
+// const form = document.querySelector("form");
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault(); // prevent page reload
+//   console.log("Form submitted!");
+// });
+
+
+// Custom Events
+// const sparkEvent = new Event("eyySpark");
+
+// document.addEventListener("eyySpark", () => {
+//   console.log("Spark shrine glyph fired!");
+// });
+
+// document.dispatchEvent(sparkEvent);
+
+
+
+
+// React Events (Synthetic Events)
+// function App() {
+//   return (
+//     <button onClick={() => console.log("Clicked in React!")}>
+//       Spark Button
+//     </button>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+// 👉 Drill: Write a function using .reduce() to sum an array.
+
+// 10 .reduce() Sum Samples
+
+
+
+// 1. Basic Sum
+// const sum1 = [1, 2, 3].reduce((acc, n) => acc + n, 0);
+// console.log(sum1); // 6
+
+
+
+// 2. Function Wrapper
+// function sumArray(arr) {
+//   return arr.reduce((acc, n) => acc + n, 0);
+// }
+// console.log(sumArray([4, 5, 6])); // 15
+
+
+
+// 3. Arrow Function Inline
+// const sum3 = (arr) => arr.reduce((acc, n) => acc + n, 0);
+// console.log(sum3([10, 20, 30])); // 60
+
+
+
+// 4. With Negative Numbers
+// const sum4 = [-5, 10, -15].reduce((acc, n) => acc + n, 0);
+// console.log(sum4); // -10
+
+
+
+// 5. With Floats
+// const sum5 = [1.5, 2.5, 3.5].reduce((acc, n) => acc + n, 0);
+// console.log(sum5); // 7.5
+
+
+
+// 6. Empty Array Safe
+// const sum6 = [].reduce((acc, n) => acc + n, 0);
+// console.log(sum6); // 0
+
+
+
+// 7. Large Array
+// const sum7 = Array.from({ length: 5 }, (_, i) => i + 1)
+//   .reduce((acc, n) => acc + n, 0);
+// console.log(sum7); // 15
+
+
+
+// 8. Sum with Initial Offset
+// const sum8 = [1, 2, 3].reduce((acc, n) => acc + n, 100);
+// console.log(sum8); // 106
+
+
+
+// 9. Sum from Object Values
+// const items = [{ price: 10 }, { price: 20 }, { price: 30 }];
+// const sum9 = items.reduce((acc, item) => acc + item.price, 0);
+// console.log(sum9); // 60
+
+
+
+// 10. Sum with Logging
+// const sum10 = [2, 4, 6].reduce((acc, n) => {
+//   console.log(`acc=${acc}, n=${n}`);
+//   return acc + n;
+// }, 0);
+// console.log(sum10); // 12
+
+
+
+
+
+
+
+
+// 👉 Interview Q: “Difference between map and forEach?”
+// Core Answer
+// .map() → Returns a new array with transformed elements. Use it when you need to transform data and keep the results.
+
+// .forEach() → Executes a function on each element but returns nothing. Use it for side effects like logging or updating external state.
+
+// 👉 Key difference: map is for transformation (new array), forEach is for iteration (no return).
+
+// Quick Sample
+// const nums = [1, 2, 3];
+
+// const doubled = nums.map(n => n * 2); // [2, 4, 6]
+// nums.forEach(n => console.log(n * 2)); // logs 2, 4, 6
+
+
+
+
+
+
+
+
+
+// 2. React Basics (Ignition Spark)
+// React Basics Core
+// JSX → Syntax extension that lets you write HTML‑like code inside JavaScript.
+
+// Components → Building blocks of React apps. Can be functional or class‑based.
+
+// Props → Inputs passed from parent to child components. Immutable inside the child.
+
+// State → Internal data managed within a component. Mutable and triggers re‑renders.
+
+// Rendering → React updates the UI when props/state change.
+
+// Keys → Unique identifiers for list items to help React track changes efficiently.
+
+// 👉 Core idea: React builds declarative UIs where you describe what the UI should look like, and React handles updates when data changes.
+
+
+
+
+
+
+// JSX rules: one parent element, expressions inside {}.
+
+// One Parent Element → Every JSX return must have a single root element wrapping all children.
+
+// Expressions Inside {} → You can embed JavaScript expressions (variables, functions, math, conditionals) inside curly braces.
+
+// Core Samples:
+
+// One Parent Element
+// function App() {
+//   return (
+//     <div>
+//       <h1>Hello Men</h1>
+//       <p>Shrine flame blazing</p>
+//     </div>
+//   );
+// }
+
+// Expressions Inside {}
+
+// function Greeting() {
+//   const name = "Flo";
+//   return <h1>Hello, {name}!</h1>;
+// }
+
+// Bottom line: JSX is strict — always one parent element, and use {} for dynamic expressions.
+
+
+
+
+
+
+
+// Props vs State: props = external, state = internal.
+
+// Props vs State Core
+
+// Props (external) → Inputs passed from parent to child. Immutable inside the child. Used to configure or feed data into a component.
+
+// State (internal) → Data managed within the component itself. Mutable, and when updated, triggers a re‑render.
+
+// Core difference: Props = external contract, State = internal memory.
+
+// Core Samples
+
+// Props Example
+
+// interface GreetingProps {
+//   name: string;
+// }
+
+// function Greeting({ name }: GreetingProps) {
+//   return <h1>Hello, {name}!</h1>;
+// }
+
+// // Usage
+// <Greeting name="Flo" />
+
+// State Example
+
+// import { useState } from "react";
+
+// function Counter() {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <div>
+//       <p>Count: {count}</p>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// }
+
+// Props + State Together
+
+// interface TodoProps {
+//   initialTasks: string[];
+// }
+
+// function TodoList({ initialTasks }: TodoProps) {
+//   const [tasks, setTasks] = useState(initialTasks);
+
+//   return (
+//     <ul>
+//       {tasks.map((t, i) => <li key={i}>{t}</li>)}
+//       <button onClick={() => setTasks([...tasks, "New Task"])}>Add</button>
+//     </ul>
+//   );
+// }
+
+// // Usage
+// <TodoList initialTasks={["Code", "Test"]} />
+
+// Men, the crisp interview glyph: Props = external, immutable; State = internal, mutable.
+
+
+
+
+
+
+
+
+// Conditional rendering: &&, ternary.
+// Conditional Rendering Core
+// In React, you can conditionally render elements using JavaScript expressions inside {}.
+
+// Two common patterns:
+
+// Logical AND (&&) → Renders something only if the condition is true.
+
+// Ternary (? :) → Renders one thing if true, another if false.
+
+// Core Samples
+
+// function Welcome({ loggedIn }) {
+//   return (
+//     <div>
+//       <h1>Moon Shrine</h1>
+//       {loggedIn && <p>Welcome back, Men 🔥</p>}
+//     </div>
+//   );
+// }
+
+// If loggedIn is true, the <p> shows. If false, nothing renders.
+
+// Using Ternary
+
+// function Status({ online }) {
+//   return (
+//     <div>
+//       {online ? <p>Online ✅</p> : <p>Offline ❌</p>}
+//     </div>
+//   );
+// }
+
+
+//  If online is true, shows ✅; if false, shows ❌.
+
+// Interview Shrine Insight
+// && → Best when you only need to render something if true.
+
+// Ternary → Best when you need to render one of two options.
+
+
+
+
+
+
+
+
+
+
+// Lists & keys: unique keys prevent re‑render bugs.
+// Lists & Keys Core
+// In React, when rendering lists with .map(), each item needs a unique key prop.
+
+// Keys help React identify which items changed, added, or removed.
+
+// Without unique keys, React may re‑render incorrectly, causing bugs, performance hits, or UI glitches.
+
+// 👉 Core idea: Keys = stable identity for list items.
+
+// Core Samples
+
+// Basic List with Keys
+
+// const tasks = ["Code", "Test", "Deploy"];
+
+// function TaskList() {
+//   return (
+//     <ul>
+//       {tasks.map((task, index) => (
+//         <li key={index}>{task}</li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+// Using Unique IDs
+
+
+// const tasks = [
+//   { id: "t1", name: "Code" },
+//   { id: "t2", name: "Test" },
+//   { id: "t3", name: "Deploy" }
+// ];
+
+// function TaskList() {
+//   return (
+//     <ul>
+//       {tasks.map(task => (
+//         <li key={task.id}>{task.name}</li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+// Bad Example (No Keys)
+
+// // ❌ React will warn: "Each child in a list should have a unique key"
+// <ul>
+//   {["A", "B", "C"].map(item => <li>{item}</li>)}
+// </ul>
+
+// Interview Shrine Insight
+// Keys must be unique and stable → avoid using array index if items can reorder.
+
+// Men, the crisp glyph: Lists need unique keys to prevent re‑render bugs.
+
+
+
+
+
+
+
+
+
+
+
+
+// 👉 Drill: Build a todo list with props + state.
+
+// Core Idea
+// Props → Parent passes initial tasks.
+
+// State → Component manages live updates (add/remove).
+
+// Together they flex the glyph: external config + internal memory.
+
+// Todo List Sample (TaskList.tsx)
+
+// import { useState } from "react";
+
+// interface TodoProps {
+//   initialTasks: string[];
+// }
+
+// function TaskList({ initialTasks }: TodoProps) {
+//   // State manages live tasks
+//   const [tasks, setTasks] = useState(initialTasks);
+
+//   // Add new task
+//   const addTask = (task: string) => {
+//     setTasks([...tasks, task]);
+//   };
+
+//   // Remove task by index
+//   const removeTask = (index: number) => {
+//     setTasks(tasks.filter((_, i) => i !== index));
+//   };
+
+//   return (
+//     <div>
+//       <h2>🔥 Shrine Todo List</h2>
+//       <ul>
+//         {tasks.map((t, i) => (
+//           <li key={i}>
+//             {t}
+//             <button onClick={() => removeTask(i)}>❌</button>
+//           </li>
+//         ))}
+//       </ul>
+//       <button onClick={() => addTask("New Task")}>➕ Add Task</button>
+//     </div>
+//   );
+// }
+
+// // Usage
+// export default function App() {
+//   return <TaskList initialTasks={["Code", "Test", "Deploy"]} />;
+// }
+
+// Glyph Breakdown
+// Props → initialTasks passed from parent.
+
+// State → tasks array managed inside component.
+
+// Dynamic Rendering → .map() renders tasks with unique keys.
+
+// Event Handling → onClick triggers add/remove actions.
+
+
+
+
+
+
+
+
+
+
+// 👉 Interview Q: “Why are keys important in lists?”
+
+// 3. Class Components (Legacy Flame)
+// constructor, render(), this.state, this.setState().
+
+// Lifecycle methods: componentDidMount, componentDidUpdate, componentWillUnmount.
+
+// Binding methods to this.
+// 👉 Drill: Create a class counter with lifecycle logs.
+// 👉 Interview Q: “How do hooks replace lifecycle methods?”
+
+// 4. Function Components + Hooks (Modern Flame)
+// useState, useEffect, useContext, useReducer.
+
+// Custom hooks for reusable logic.
+
+// Rules of hooks: only at top level, only inside functions.
+// 👉 Drill: Build a timer with useEffect.
+// 👉 Interview Q: “What happens if you forget the dependency array in useEffect?”
+
+// 5. Advanced React (Glyph Tier)
+// Context API vs Redux: Context for small state, Redux for complex/global.
+
+// React Router v6: <Route>, <Link>, useNavigate.
+// 👉 Drill: Implement a theme switcher with Context.
+// 👉 Interview Q: “Compare Context API and Redux — when use each?”
 
 
 
