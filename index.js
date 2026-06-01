@@ -4312,7 +4312,34 @@ class Counter extends React.Component {
 
 
 // Context API vs Redux: Context for small state, Redux for complex/global.
+// ⚡ Context API
+// Purpose → Share state globally without prop drilling.
 
+// Best for → Small to medium apps, simple global values (theme, user, language).
+
+// Pros → Built into React, lightweight, easy setup.
+
+// Cons → Not great for very complex state logic or debugging across many updates.
+
+// ⚡ Redux
+// Purpose → Centralized state container with strict patterns (actions, reducers, store).
+
+// Best for → Large apps with complex state, multiple interactions, or when you need predictable state flow.
+
+// Pros → Powerful dev tools (time-travel debugging), predictable updates, scalable.
+
+// Cons → More boilerplate, steeper learning curve.
+
+// 📊 Glyph Comparison
+// Aspect	Context API	Redux
+// Scope	Small/global values	Complex/global state
+// Setup	Minimal	More boilerplate
+// Debugging	Limited	Advanced DevTools
+// Scalability	Medium	High
+// Best Use Case	Theme, auth, language	Large apps, complex workflows
+
+
+// 👉 Crisp interview flame: Context API = simple global state, Redux = complex predictable state management.
 
 
 
@@ -4322,7 +4349,67 @@ class Counter extends React.Component {
 
 
 // React Router v6: <Route>, <Link>, useNavigate.
+// ⚡ Core Pieces
+// 🔹 <Route>
+// Defines path → component mapping.
+
+// In v6, you use element={<Component />} instead of component or render.
+
+// jsx
+// <Routes>
+//   <Route path="/home" element={<Home />} />
+//   <Route path="/about" element={<About />} />
+// </Routes>
+// 🔹 <Link>
+// Navigation without full page reload.
+
+// jsx
+// <nav>
+//   <Link to="/home">Home</Link>
+//   <Link to="/about">About</Link>
+// </nav>
+// 🔹 useNavigate
+// Hook for programmatic navigation.
+
+// jsx
+// import { useNavigate } from "react-router-dom";
+
+// function Login() {
+//   const navigate = useNavigate();
+
+//   const handleLogin = () => {
+//     // after login
+//     navigate("/dashboard");
+//   };
+
+//   return <button onClick={handleLogin}>Sign In</button>;
+// }
+// ⚡ Interview Shrine Insight
+// <Route> → declarative mapping.
+
+// <Link> → user-driven navigation.
+
+// useNavigate → programmatic navigation.
+// 👉 Crisp flame: React Router v6 = declarative routes + hooks for navigation.
+
+
+
+
+
+
+
+
 // 👉 Drill: Implement a theme switcher with Context.
+
+
+
+
+
+
+
+
+
+
 // 👉 Interview Q: “Compare Context API and Redux — when use each?”
 
 
