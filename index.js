@@ -3641,68 +3641,68 @@ console.log('50 .filter() Samples');
 
 // Binding ensures this points to the component instance (so you can access this.state and this.props).
 
-Binding Methods Approaches
+// Binding Methods Approaches
 
-Bind in Constructor
+// Bind in Constructor
 
-class Counter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-    // bind method
-    this.increment = this.increment.bind(this);
-  }
+// class Counter extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { count: 0 };
+//     // bind method
+//     this.increment = this.increment.bind(this);
+//   }
 
-  increment() {
-    this.setState({ count: this.state.count + 1 });
-  }
+//   increment() {
+//     this.setState({ count: this.state.count + 1 });
+//   }
 
-  render() {
-    return <button onClick={this.increment}>➕ {this.state.count}</button>;
-  }
-}
+//   render() {
+//     return <button onClick={this.increment}>➕ {this.state.count}</button>;
+//   }
+// }
 
-Arrow Function Class Property
+// Arrow Function Class Property
 
-class Counter extends React.Component {
-  state = { count: 0 };
+// class Counter extends React.Component {
+//   state = { count: 0 };
 
-  // arrow keeps 'this'
-  increment = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+//   // arrow keeps 'this'
+//   increment = () => {
+//     this.setState({ count: this.state.count + 1 });
+//   };
 
-  render() {
-    return <button onClick={this.increment}>➕ {this.state.count}</button>;
-  }
-}
+//   render() {
+//     return <button onClick={this.increment}>➕ {this.state.count}</button>;
+//   }
+// }
 
-Inline Arrow in JSX (not recommended for performance)
+// Inline Arrow in JSX (not recommended for performance)
 
-class Counter extends React.Component {
-  state = { count: 0 };
+// class Counter extends React.Component {
+//   state = { count: 0 };
 
-  increment() {
-    this.setState({ count: this.state.count + 1 });
-  }
+//   increment() {
+//     this.setState({ count: this.state.count + 1 });
+//   }
 
-  render() {
-    return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
-  }
-}
+//   render() {
+//     return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
+//   }
+// }
 
 
-class Counter extends React.Component {
-  state = { count: 0 };
+// class Counter extends React.Component {
+//   state = { count: 0 };
 
-  increment() {
-    this.setState({ count: this.state.count + 1 });
-  }
+//   increment() {
+//     this.setState({ count: this.state.count + 1 });
+//   }
 
-  render() {
-    return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
-  }
-}
+//   render() {
+//     return <button onClick={() => this.increment()}>➕ {this.state.count}</button>;
+//   }
+// }
 
 
 // Interview Shrine Insight
@@ -4400,8 +4400,73 @@ class Counter extends React.Component {
 
 
 // 👉 Drill: Implement a theme switcher with Context.
+// Step 1: Create Theme Context
+// jsx
+// import React, { createContext, useState } from "react";
 
+// export const ThemeContext = createContext();
 
+// export function ThemeProvider({ children }) {
+//   const [theme, setTheme] = useState("light");
+
+//   const toggleTheme = () => {
+//     setTheme(prev => (prev === "light" ? "dark" : "light"));
+//   };
+
+//   return (
+//     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+//       {children}
+//     </ThemeContext.Provider>
+//   );
+// }
+// ⚡ Step 2: Consume Context in Components
+// jsx
+// import React, { useContext } from "react";
+// import { ThemeContext } from "./ThemeContext";
+
+// function ThemedButton() {
+//   const { theme, toggleTheme } = useContext(ThemeContext);
+
+//   return (
+//     <button
+//       onClick={toggleTheme}
+//       style={{
+//         backgroundColor: theme === "light" ? "#fff" : "#333",
+//         color: theme === "light" ? "#000" : "#fff",
+//       }}
+//     >
+//       Current Theme: {theme}
+//     </button>
+//   );
+// }
+
+// export default ThemedButton;
+// ⚡ Step 3: Wrap App with Provider
+// jsx
+// import React from "react";
+// import { ThemeProvider } from "./ThemeContext";
+// import ThemedButton from "./ThemedButton";
+
+// function App() {
+//   return (
+//     <ThemeProvider>
+//       <div>
+//         <h1>🔥 Theme Switcher Shrine</h1>
+//         <ThemedButton />
+//       </div>
+//     </ThemeProvider>
+//   );
+// }
+
+// export default App;
+// ⚡ Glyph Insight
+// Context API → provides global theme state.
+
+// useContext → consumes theme + toggle function.
+
+// Provider → wraps the app so all components can access theme.
+
+// 👉 Crisp flame: Theme switcher = Context for global theme, toggle for switching, consumer for UI.
 
 
 
@@ -4411,7 +4476,63 @@ class Counter extends React.Component {
 
 
 // 👉 Interview Q: “Compare Context API and Redux — when use each?”
+// Use Context API for small, simple global state (like theme, language, or user auth) and Redux for large, complex applications with frequent updates and strict state management needs. Context is built into React and lightweight, while Redux provides a centralized store, middleware, and advanced debugging tools.
 
+// ⚡ Context API
+// Best for: Small to medium apps, simple global values.
+
+// Examples: Theme switching, locale preferences, user authentication status.
+
+// Pros:
+
+// Built into React (no extra library).
+
+// Easy to set up and understand.
+
+// Eliminates prop drilling.
+
+// Cons:
+
+// Limited debugging tools.
+
+// Not ideal for very complex or frequently updated state.
+
+// Use Case: Sharing a theme or user object across components without passing props manually.
+
+// ⚡ Redux
+// Best for: Large-scale apps with complex state logic.
+
+// Examples: E-commerce cart, dashboards with multiple data sources, apps with frequent state updates.
+
+// Pros:
+
+// Centralized store → single source of truth.
+
+// Predictable state updates via actions and reducers.
+
+// Powerful dev tools (time-travel debugging).
+
+// Middleware support for async logic (Redux Thunk, Redux Saga).
+
+// Cons:
+
+// More boilerplate and setup.
+
+// Steeper learning curve.
+
+// Use Case: Applications where many components need access to shared state and updates must be predictable and traceable.
+
+// 📊 Comparison Table
+// Aspect	Context API	Redux
+// Scope	Small/global values	Complex/global state
+// Setup	Minimal, built-in	Requires external library & setup
+// Debugging	Limited	Advanced DevTools
+// Scalability	Medium	High
+// Best Use Case	Theme, auth, language	Large apps, complex workflows
+
+
+// ⚡ Interview Shrine Insight
+// 👉 Crisp answer: Use Context API for simple global state (theme, auth, language). Use Redux when your app grows large, state logic is complex, or you need powerful debugging and predictable updates.
 
 
 
